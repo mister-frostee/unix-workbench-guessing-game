@@ -1,17 +1,21 @@
-num_files=$(expr `ls -l | wc -l` - 1)
+num_files=`find . -type f | wc -l`
 response=-1
+valid_response="^[0-9]+$"
 function compare_numbers () {
-	response=$1
-	num_files=$2
-	if [[ $response -lt $num_files ]]
+	if [[ $1 =~ $3 && $1 -gt -1 && $1 -lt 2147483648 ]]
 	then
-		echo "Try a larger number..."
-	elif [[ $response -gt $num_files ]]
-	then
-		echo "Try a smaller number..."
+		if [[ $1 -lt $2 ]]
+		then
+			echo "Try a larger number..."
+		elif [[ $1 -gt $2 ]]
+		then
+			echo "Try a smaller number..."
+		else
+			echo "Congratulations! You guessed correctly!"
+			exit
+		fi
 	else
-		echo "Congratulations! You guessed correctly!"
-		exit
+		echo "Invalid input! Permitted: Numbers from 0 to 2147483647"
 	fi
 }
 echo
@@ -20,6 +24,6 @@ do
 	echo -n "Guess the number of files in this directory: "
 	read response
 	echo
-	compare_numbers $response $num_files
+	compare_numbers $response $num_files $valid_response
 	echo
 done
