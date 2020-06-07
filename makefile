@@ -1,5 +1,5 @@
 all:
-	echo "Project: UNIX Workbench - Guessing Game" >> README.md
+	echo "Project: UNIX Workbench - Guessing Game" > README.md
 	echo >> README.md
 	echo "make execution time: "`date +"%Y-%m-%dT%H:%M:%S"` >> README.md
 	echo >> README.md
